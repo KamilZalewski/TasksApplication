@@ -4,9 +4,12 @@ import com.crud.tasks.domain.TrelloBoardDto;
 import com.crud.tasks.domain.TrelloCardDto;
 import com.crud.tasks.mapper.CreatedTrelloCard;
 import com.sun.jndi.toolkit.url.Uri;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -18,6 +21,8 @@ import java.util.Optional;
 
 @Component
 public class TrelloClient {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(TrelloClient.class);
 
     @Value("${trello.api.endpoint.prod}")
     private String trelloApiEndpoint;
@@ -46,12 +51,14 @@ public class TrelloClient {
         return urlAdress;
     }
     public List<TrelloBoardDto> getTrelloBoards() {
-
+        try {
         TrelloBoardDto[] boardsResponse = restTemplate.getForObject(createUrlAdress(), TrelloBoardDto[].class);
-
         return Arrays.asList(Optional.ofNullable(boardsResponse).orElse(new TrelloBoardDto[0]));
+        } catch (RestClientException e) {
+        LOGGER.error(e.getMessage(),e);
+        return new ArrayList<>();
+        }
     }
-
 
     public CreatedTrelloCard createNewCard(TrelloCardDto trelloCardDto) {
         URI url = UriComponentsBuilder.fromHttpUrl(trelloApiEndpoint + "/cards")
