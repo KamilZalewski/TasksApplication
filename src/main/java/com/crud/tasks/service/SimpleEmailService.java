@@ -1,5 +1,6 @@
 package com.crud.tasks.service;
 
+import com.crud.tasks.config.AdminConfig;
 import com.crud.tasks.domain.Mail;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,6 +34,11 @@ public class SimpleEmailService {
         mailMessage.setTo(mail.getMailTo());
         mailMessage.setSubject(mail.getSubject());
         mailMessage.setText(mail.getMessage());
+        if (mail.getToCc() != null) {
+            mailMessage.setCc(mail.getToCc());
+        } else {
+            mailMessage.setCc((String)null);
+        }
         return mailMessage;
     }
 }
