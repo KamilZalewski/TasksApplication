@@ -38,6 +38,7 @@ public class SimpleEmailService {
             mailMessage.setCc(mail.getToCc());
         } else {
             mailMessage.setCc((String)null);
+            LOGGER.info("Email has been sent only to one receiver.");
         }
         return mailMessage;
     }
