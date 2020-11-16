@@ -90,13 +90,13 @@ public class TrelloControllerTest {
                 "Test",
                 "http://test.com");
 
-        when(trelloFacade.createCard(ArgumentMatchers.any(TrelloCardDto.class))).thenReturn(createdTrelloCardDto);
+        when(trelloFacade.createCard(ArgumentMatchers.any())).thenReturn(createdTrelloCardDto);
 
         Gson gson = new Gson();
         String jsonContent = gson.toJson(trelloCardDto);
 
         //When & Then
-        mockMvc.perform(post("v1/trello/createTrelloCard")
+        mockMvc.perform(post("/v1/trello/createTrelloCard")
                 .contentType(MediaType.APPLICATION_JSON)
                 .characterEncoding("UTF-8")
                 .content(jsonContent))
