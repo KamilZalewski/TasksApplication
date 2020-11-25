@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @Getter
 public class TaskDto {
     private Long id;
-    private String name;
+    private String title;
     private String content;
 }

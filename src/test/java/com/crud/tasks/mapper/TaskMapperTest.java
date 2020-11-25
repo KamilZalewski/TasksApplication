@@ -40,7 +40,7 @@ public class TaskMapperTest {
         Task task = new Task(1L, "Testing name.", "Testing content.");
         //When
         Long id = taskMapper.mapToTaskDto(task).getId();
-        String name = taskMapper.mapToTaskDto(task).getName();
+        String name = taskMapper.mapToTaskDto(task).getTitle();
         String content = taskMapper.mapToTaskDto(task).getContent();
         //Then
         Assert.assertEquals(1L, (Object) id);

@@ -119,7 +119,7 @@ public class TaskControllerTest {
                 "content"
         );
 
-        when(taskMapper.mapToTask(taskDto)).thenReturn(new Task(taskDto.getId(), taskDto.getName(), taskDto.getContent()));
+        when(taskMapper.mapToTask(taskDto)).thenReturn(new Task(taskDto.getId(), taskDto.getTitle(), taskDto.getContent()));
         when(service.saveTask(task)).thenReturn(task);
         when(taskMapper.mapToTaskDto(any())).thenReturn(taskDto);
         Gson gson = new Gson();
