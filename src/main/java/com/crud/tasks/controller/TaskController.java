@@ -10,7 +10,7 @@ import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
-@CrossOrigin(origins = "*")
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/v1")
 public class TaskController {
@@ -18,6 +18,7 @@ public class TaskController {
     private DbService service;
     @Autowired
     private TaskMapper taskMapper;
+
 
     @RequestMapping(method = RequestMethod.GET, value = "/tasks")
     public List<TaskDto> getTasks(){

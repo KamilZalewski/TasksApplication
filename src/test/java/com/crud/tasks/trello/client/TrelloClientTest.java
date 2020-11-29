@@ -88,7 +88,7 @@ public class TrelloClientTest extends TestCase {
 
     @Test
     public void shouldReturnEmptyList() throws URISyntaxException {
-        //Givendd
+        //Given
         //When
         List<TrelloBoardDto> trelloBoards = trelloClient.getTrelloBoards();
         //Then

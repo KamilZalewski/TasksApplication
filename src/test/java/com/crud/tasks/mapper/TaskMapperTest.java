@@ -23,37 +23,37 @@ public class TaskMapperTest {
     @Test
     public void testMapToTask() {
         //Given
-        TaskDto taskDto = new TaskDto(1L, "Testing name.", "Testing content.");
+        TaskDto taskDto = new TaskDto(1L, "Testing title.", "Testing content.");
         //When
         Long id = taskMapper.mapToTask(taskDto).getId();
-        String name = taskMapper.mapToTask(taskDto).getName();
+        String title = taskMapper.mapToTask(taskDto).getTitle();
         String content = taskMapper.mapToTask(taskDto).getContent();
         //Then
         Assert.assertEquals(1L, (Object) id);
-        Assert.assertEquals("Testing name.", name);
+        Assert.assertEquals("Testing title.", title);
         Assert.assertEquals("Testing content.", content);
     }
 
     @Test
     public void testMapToTaskDto() {
         //Given
-        Task task = new Task(1L, "Testing name.", "Testing content.");
+        Task task = new Task(1L, "Testing title.", "Testing content.");
         //When
         Long id = taskMapper.mapToTaskDto(task).getId();
-        String name = taskMapper.mapToTaskDto(task).getTitle();
+        String title = taskMapper.mapToTaskDto(task).getTitle();
         String content = taskMapper.mapToTaskDto(task).getContent();
         //Then
         Assert.assertEquals(1L, (Object) id);
-        Assert.assertEquals("Testing name.", name);
+        Assert.assertEquals("Testing title.", title);
         Assert.assertEquals("Testing content.", content);
     }
 
     @Test
     public void testMapToTaskDtoList() {
         //Given
-        Task task1 = new Task(1L, "Testing name1.", "Testing content.");
-        Task task2 = new Task(2L, "Testing name2.", "Testing content.");
-        Task task3 = new Task(3L, "Testing name3.", "Testing content.");
+        Task task1 = new Task(1L, "Testing title1.", "Testing content.");
+        Task task2 = new Task(2L, "Testing title2.", "Testing content.");
+        Task task3 = new Task(3L, "Testing title3.", "Testing content.");
         List<Task> taskList = new ArrayList<>();
         taskList.add(task1);
         taskList.add(task2);

@@ -25,7 +25,8 @@ public class SimpleEmailServiceTest extends TestCase {
     @Test
     public void shouldSendEmail() {
         //Given
-        Mail mail = new Mail("test@test,com","Test","Test Message","");
+        Mail mail = new Mail("test@test.com","Test","Test Message","paulaszabat@gmail.com");
+
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setTo(mail.getMailTo());
         mailMessage.setSubject(mail.getSubject());
