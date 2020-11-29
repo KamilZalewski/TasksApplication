@@ -12,13 +12,13 @@ public class CompanyConfig {
     @Value("${info.company.name}")
     private String companyName;
 
-    @Value("${info.company.name}")
+    @Value("${info.company.goal}")
     private String companyGoal;
 
-    @Value("${info.company.name}")
+    @Value("${info.company.email}")
     private String companyEmail;
 
-    @Value("${info.company.name}")
+    @Value("${info.company.phone}")
     private String companyPhone;
 
 }
