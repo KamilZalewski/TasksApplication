@@ -52,11 +52,11 @@ public class MailCreatorService {
         context.setVariable("count_of_tasks", taskRepository.count());
         return templateEngine.process("mail/created-trello-card-mail", context);
     }
-//
-//    public String buildHowManyTasksInDBEmail() {
-//        Context context = new Context();
-//        return templateEngine.process()
-//    }
+
+    public String buildHowManyTasksInDBEmail() {
+        Context context = new Context();
+        return templateEngine.process("mail/how-many-tasks-in-DB-mail", context);
+    }
 
 
 }

@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 import org.hamcrest.Matchers;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -73,11 +74,11 @@ public class TaskControllerTest {
         );
 
         when(service.getTask(1L)).thenReturn(Optional.ofNullable(task));
-        when(taskMapper.mapToTaskDto(task)).thenReturn(new TaskDto(task.getId(), task.getTitle(), task.getContent()));
+        when(taskMapper.mapToTaskDto(ArgumentMatchers.any())).thenReturn(new TaskDto(task.getId(), task.getTitle(), task.getContent()));
         Gson gson = new Gson();
         String jsonContent = gson.toJson(task);
         //When & Then
-        mockMvc.perform(get("/v1/tasks?taskId=1")
+        mockMvc.perform(get("/v1/tasks/?taskId=1}")
                 .contentType(MediaType.APPLICATION_JSON)
                 .characterEncoding("UTF-8")
                 .content(jsonContent))
@@ -98,7 +99,7 @@ public class TaskControllerTest {
         );
 
         //When & Then
-        mockMvc.perform(delete("/v1/tasks?taskId=1")
+        mockMvc.perform(delete("/v1/tasks/?taskId=1")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is(200));
         Mockito.verify(service, times(1)).deleteTask(any());
