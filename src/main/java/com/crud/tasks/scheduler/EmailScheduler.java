@@ -21,27 +21,20 @@ public class EmailScheduler {
     private SimpleEmailService simpleEmailService;
 
     @Autowired
-    private TaskRepository taskRepository;
-
-    @Autowired
     private DbService dbService;
 
     @Autowired
     private AdminConfig adminConfig;
 
-    @Scheduled(cron = "0 0 10 * * *")
-    //@Scheduled(fixedDelay = 10000)
+    @Scheduled(cron = "0 0 10 * * *") // once a day at 10 AM
+//    @Scheduled(fixedDelay = 10_000) // once every 10 seconds
     public void sendInformationEmail() {
-        long size = taskRepository.count();
-        String message = (size == 1) ? "task" : "tasks";
-        simpleEmailService.send
-                (new Mail(adminConfig.getAdminMail(), SUBJECT, "Currently in database you got: " + size + " " + message , "paulaszabat@gmail.com"));
-    }
-
-    public void sendInformationHowManyTasksInDB() {
         long size = dbService.getAllTasks().size();
-        String message = (size == 1) ? "task" : "tasks";
-        simpleEmailService.send
-                (new Mail(adminConfig.getAdminMail(), SUBJECT, "Currently in database you got: " + size + " " + message , "paulaszabat@gmail.com"));
+        simpleEmailService.sendDailyMail(new Mail(
+                adminConfig.getAdminMail(),
+                SUBJECT,
+                "Currently in database you got: " + size + (size > 1 ? " tasks" : " task"),
+                "paulaszabat@gmail.com")
+        );
     }
 }

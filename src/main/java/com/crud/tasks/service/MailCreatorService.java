@@ -49,15 +49,41 @@ public class MailCreatorService {
         context.setVariable("company_goal", companyConfig.getCompanyGoal());
         context.setVariable("company_email", companyConfig.getCompanyEmail());
         context.setVariable("company_phone", companyConfig.getCompanyPhone());
-        context.setVariable("count_of_tasks", taskRepository.count());
         context.setVariable("preview_message", "Good Morning!");
         return templateEngine.process("mail/created-trello-card-mail", context);
     }
 
-    public String buildHowManyTasksInDBEmail() {
-        Context context = new Context();
-        return templateEngine.process("mail/how-many-tasks-in-DB-mail", context);
-    }
+    public String buildTaskQuantityDailyEmail(String message) {
+        List<String> effectiveTaskManagementTips = new ArrayList<>();
+        effectiveTaskManagementTips.add("Make To-do Lists");
+        effectiveTaskManagementTips.add("Prioritize");
+        effectiveTaskManagementTips.add("Schedule");
+        effectiveTaskManagementTips.add("Be Flexible");
+        effectiveTaskManagementTips.add("Manage Change");
+        effectiveTaskManagementTips.add("Delegate");
+        effectiveTaskManagementTips.add("Be Involved");
+        effectiveTaskManagementTips.add("Be Patient");
+        effectiveTaskManagementTips.add("Communicate");
+        effectiveTaskManagementTips.add("Use Task Management Software");
 
+        Context context = new Context();
+        context.setVariable("message", message);
+        context.setVariable("tasks_url", "http://localhost:8888/tasks_frontend");
+        context.setVariable("button", "Your Application Frontend");
+        context.setVariable("admin_name", adminConfig.getAdminName());
+        context.setVariable("goodbye_message", "Bye, till tomorrow. Your application AI");
+        context.setVariable("company_name", companyConfig.getCompanyName());
+        context.setVariable("company_goal", companyConfig.getCompanyGoal());
+        context.setVariable("company_email", companyConfig.getCompanyEmail());
+        context.setVariable("company_phone", companyConfig.getCompanyPhone());
+        context.setVariable("show_button", true);
+        context.setVariable("is_friend", true);
+        context.setVariable("admin_config", adminConfig);
+        context.setVariable("effective_task_management_tips", effectiveTaskManagementTips);
+        context.setVariable("tasks_url2", "https://www.ntaskmanager.com/blog/task-management-skills/");
+        context.setVariable("button2", "Visit website - 10 Tips for Effective Task Management");
+
+        return templateEngine.process("mail/task_quantity_daily_mail", context);
+    }
 
 }
