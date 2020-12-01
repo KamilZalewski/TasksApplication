@@ -103,19 +103,5 @@ public class TrelloControllerTest {
                 .andExpect(jsonPath("$.name", is("Test")))
                 .andExpect(jsonPath("$.shortUrl", is("http://test.com"))
                 );
-
-        //CleanUp
-
-//        mockMvc.perform(delete("/v1/trello/cards")
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .characterEncoding("UTF-8")
-//                .content(jsonContent))
-//                .andExpect(jsonPath("$.name", is("Test")))
-//                .andExpect(jsonPath("$.description", is("Test description")))
-//                .andExpect(jsonPath("$.pos", is("top")))
-//                .andExpect(jsonPath("$.listId", is("1"))
-//                );
-
     }
-
 }

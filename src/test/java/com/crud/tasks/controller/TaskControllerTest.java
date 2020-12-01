@@ -73,14 +73,15 @@ public class TaskControllerTest {
                 "content"
         );
 
-        when(service.getTask(1L)).thenReturn(Optional.ofNullable(task));
+        when(service.getTask(ArgumentMatchers.anyLong())).thenReturn(Optional.ofNullable(task));
         when(taskMapper.mapToTaskDto(ArgumentMatchers.any())).thenReturn(new TaskDto(task.getId(), task.getTitle(), task.getContent()));
         Gson gson = new Gson();
         String jsonContent = gson.toJson(task);
         //When & Then
-        mockMvc.perform(get("/v1/tasks/?taskId=1}")
+        mockMvc.perform(get("/v1/tasks/1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .characterEncoding("UTF-8")
+                .param("taskId", "1")
                 .content(jsonContent))
                 .andExpect(status().is(200))
                 .andExpect(jsonPath("$.id", Matchers.is(1)))
@@ -91,18 +92,13 @@ public class TaskControllerTest {
 
     @Test
     public void shouldDeleteTask() throws Exception {
-        //Given
-        Task task = new Task(
-                1L,
-                "title",
-                "content"
-        );
-
         //When & Then
-        mockMvc.perform(delete("/v1/tasks/?taskId=1")
-                .contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(delete("/v1/tasks/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .characterEncoding("UTF-8")
+                .param("taskId", "1"))
                 .andExpect(status().is(200));
-        Mockito.verify(service, times(1)).deleteTask(any());
+        Mockito.verify(service, times(1)).deleteTask(ArgumentMatchers.anyLong());
     }
 
     @Test
